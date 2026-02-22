@@ -3,64 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Agendamento - Insumos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .insumo {
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Sistema de Agendamento - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>📦 Sistema de Agendamento de Insumos</h1>
-        
-        <div class="insumo">
-            <h3>Paletes</h3>
-            <p>Disponível para agendamento</p>
-            <button onclick="alert('Função de agendamento será implementada!')">Agendar Paletes</button>
+        <!-- Área da imagem/lado visual -->
+        <div class="left-side">
+            <div class="content">
+                <h1>Sistema de Agendamento</h1>
+                <p>Gerencie seus insumos de forma eficiente</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-pallet"></i>
+                        <span>Controle de Paletes</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-box"></i>
+                        <span>Gestão de Caixas Plásticas</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Agendamento Simplificado</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="insumo">
-            <h3>Caixas Plásticas</h3>
-            <p>Disponível para agendamento</p>
-            <button onclick="alert('Função de agendamento será implementada!')">Agendar Caixas</button>
+
+        <!-- Área do formulário -->
+        <div class="right-side">
+            <div class="form-container">
+                <!-- Tabs de navegação -->
+                <div class="tabs">
+                    <button class="tab active" id="loginTab">Login</button>
+                    <button class="tab" id="registerTab">Cadastrar</button>
+                </div>
+
+                <!-- Formulário de Login -->
+                <form id="loginForm" class="form active">
+                    <h2>Bem-vindo de volta!</h2>
+                    <p>Faça login para acessar o sistema</p>
+
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="E-mail" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Senha" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label>
+                            <input type="checkbox"> Lembrar-me
+                        </label>
+                        <a href="#" id="forgotPassword">Esqueceu a senha?</a>
+                    </div>
+
+                    <button type="submit" class="btn-login">Entrar</button>
+                </form>
+
+                <!-- Formulário de Cadastro -->
+                <form id="registerForm" class="form">
+                    <h2>Criar nova conta</h2>
+                    <p>Preencha os dados para se cadastrar</p>
+
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="regName" placeholder="Nome completo" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="regEmail" placeholder="E-mail" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="regPassword" placeholder="Senha" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="regConfirmPassword" placeholder="Confirmar senha" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+
+                    <div class="terms">
+                        <label>
+                            <input type="checkbox" required> Aceito os <a href="#">Termos de Uso</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-register">Cadastrar</button>
+                </form>
+            </div>
         </div>
-        
-        <p style="text-align: center; margin-top: 30px; color: #666;">
-            Sistema em desenvolvimento - Versão inicial
-        </p>
     </div>
+
+    <!-- Modal de esqueceu senha -->
+    <div id="forgotModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Recuperar senha</h3>
+            <p>Digite seu e-mail para receber instruções</p>
+            <input type="email" id="resetEmail" placeholder="Seu e-mail">
+            <button id="resetPassword">Enviar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
