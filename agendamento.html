@@ -3,66 +3,814 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Agendamento</title>
+    <title>Comercial Esperança - Agendamentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* LOGO - igual ao style.css */
+        .logo-container {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 9999;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.25);
+            border: 2px solid rgba(255, 182, 193, 0.6);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            animation: slideDown 0.6s ease;
+            max-width: 250px;
+        }
+
+        .logo-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.35);
+            border-color: #FF69B4;
+        }
+
+        .logo {
+            height: 45px;
+            width: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover .logo {
+            transform: scale(1.02);
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #FF69B4;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text i {
+            font-size: 1.8rem;
+            color: #FF69B4;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+            padding: 1rem 2rem 1rem 280px; /* Espaço para o logo */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info span {
+            font-weight: 500;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Container principal */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Cards de resumo */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.15);
+        }
+
+        .card.palete {
+            border-bottom-color: #FFB6C1;
+        }
+
+        .card.caixa {
+            border-bottom-color: #FF69B4;
+        }
+
+        .card.cinta {
+            border-bottom-color: #DB7093;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
         }
-        .container {
+
+        .card-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .card-info h3 {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-info .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Título da seção */
+        .section-title {
+            margin: 2rem 0 1.5rem;
+            color: #333;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: #FF69B4;
+        }
+
+        /* Grid de insumos */
+        .insumos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .insumo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,105,180,0.2);
+        }
+
+        .insumo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(255,105,180,0.25);
+        }
+
+        .insumo-header {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .insumo-header i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .insumo-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .insumo-body {
+            padding: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ffe4ec;
+        }
+
+        .info-item .label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .info-item .value {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .btn-agendar {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-agendar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,105,180,0.4);
+        }
+
+        /* Tabela de agendamentos */
+        .agendamentos-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #ffe4ec;
+        }
+
+        tr:hover {
+            background: #fff9fb;
+        }
+
+        .status {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status.confirmado {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.pendente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.cancelado {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Modal de agendamento */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
             background: white;
             padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 400px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            border-top: 4px solid #FF69B4;
         }
-        h1 {
+
+        .modal-content h2 {
+            margin-bottom: 1.5rem;
             color: #333;
+        }
+
+        .modal-content input,
+        .modal-content select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ffe4ec;
+            border-radius: 8px;
             margin-bottom: 1rem;
+            font-size: 1rem;
         }
-        p {
-            color: #666;
-            margin-bottom: 2rem;
+
+        .modal-content input:focus,
+        .modal-content select:focus {
+            border-color: #FF69B4;
+            outline: none;
         }
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 0.8rem;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
+            border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+
+        .btn-save {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #eee;
+            color: #666;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        /*animações */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .logo-container {
+                top: 15px;
+                left: 15px;
+                padding: 6px 15px;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+            
+            .logo-text {
+                font-size: 1rem;
+            }
+            
+            .header {
+                padding: 1rem 1rem 1rem 120px;
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .insumos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding-left: 100px;
+            }
+            
+            .user-info {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+            
+            .card-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .card-icon i {
+                font-size: 1.5rem;
+            }
+            
+            .card-info .number {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>✅ Login realizado com sucesso!</h1>
-        <p>Em breve: Sistema de agendamento de paletes e caixas plásticas</p>
-        <button class="btn" onclick="logout()">Sair</button>
+    <!-- LOGO NO CANTO SUPERIOR ESQUERDO -->
+    <div class="logo-container">
+        <img src="images/logo-comercial-esperanca.png" alt="Comercial Esperança" class="logo" 
+             onerror="this.style.display='none'; document.getElementById('logo-text-ag').style.display='flex';">
+        <div id="logo-text-ag" class="logo-text" style="display: none;">
+            <i class="fas fa-store"></i>
+            <span>Comercial Esperança</span>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <h1><i class="fas fa-calendar-alt"></i> Sistema de Agendamento</h1>
+        </div>
+        <div class="user-info">
+            <span id="userName"><i class="fas fa-user"></i> </span>
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Cards de resumo -->
+        <div class="summary-cards">
+            <div class="card palete">
+                <div class="card-icon">
+                    <i class="fas fa-pallet"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Paletes Disponíveis</h3>
+                    <div class="number" id="totalPaletes">150</div>
+                </div>
+            </div>
+            <div class="card caixa">
+                <div class="card-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Caixas Disponíveis</h3>
+                    <div class="number" id="totalCaixas">320</div>
+                </div>
+            </div>
+            <div class="card cinta">
+                <div class="card-icon">
+                    <i class="fas fa-tape"></i>
+                </div>
+                <div class="card-info">
+                    <h3>Cintas Disponíveis</h3>
+                    <div class="number" id="totalCintas">500</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insumos para agendamento -->
+        <h2 class="section-title">
+            <i class="fas fa-boxes"></i>
+            Insumos Disponíveis
+        </h2>
+
+        <div class="insumos-grid">
+            <!-- Card Paletes -->
+            <div class="insumo-card">
+                <div class="insumo-header">
+                    <i class="fas fa-pallet"></i>
+                    <h2>Paletes</h2>
+                </div>
+                <div class="insumo-body">
+                    <div class="info-item">
+                        <span class="label">Quantidade disponível:</span>
+                        <span class="value" id="paleteQtd">150</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Tamanhos:</span>
+                        <span class="value">P, M, G</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Material:</span>
+                        <span class="value">Madeira/Plástico</span>
+                    </div>
+                    <button class="btn-agendar" onclick="abrirModal('Paletes')">
+                        <i class="fas fa-calendar-plus"></i> Agendar Paletes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Caixas Plásticas -->
+            <div class="insumo-card">
+                <div class="insumo-header">
+                    <i class="fas fa-box"></i>
+                    <h2>Caixas Plásticas</h2>
+                </div>
+                <div class="insumo-body">
+                    <div class="info-item">
+                        <span class="label">Quantidade disponível:</span>
+                        <span class="value" id="caixaQtd">320</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Capacidade:</span>
+                        <span class="value">20L a 50L</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Cores:</span>
+                        <span class="value">Azul, Verde</span>
+                    </div>
+                    <button class="btn-agendar" onclick="abrirModal('Caixas Plásticas')">
+                        <i class="fas fa-calendar-plus"></i> Agendar Caixas
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Cintas para Paletes -->
+            <div class="insumo-card">
+                <div class="insumo-header">
+                    <i class="fas fa-tape"></i>
+                    <h2>Cintas para Paletes</h2>
+                </div>
+                <div class="insumo-body">
+                    <div class="info-item">
+                        <span class="label">Quantidade disponível:</span>
+                        <span class="value" id="cintaQtd">500</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Comprimentos:</span>
+                        <span class="value">5m, 10m, 20m</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Material:</span>
+                        <span class="value">Polietileno</span>
+                    </div>
+                    <button class="btn-agendar" onclick="abrirModal('Cintas para Paletes')">
+                        <i class="fas fa-calendar-plus"></i> Agendar Cintas
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Histórico de agendamentos -->
+        <h2 class="section-title">
+            <i class="fas fa-history"></i>
+            Meus Agendamentos
+        </h2>
+
+        <div class="agendamentos-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Insumo</th>
+                        <th>Quantidade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="agendamentosList">
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #666;">
+                            Nenhum agendamento encontrado
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de agendamento -->
+    <div id="agendamentoModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Agendar Insumo</h2>
+            <select id="insumoSelect">
+                <option value="Paletes">Paletes</option>
+                <option value="Caixas Plásticas">Caixas Plásticas</option>
+                <option value="Cintas para Paletes">Cintas para Paletes</option>
+            </select>
+            <input type="number" id="quantidade" placeholder="Quantidade" min="1">
+            <input type="date" id="dataAgendamento">
+            <select id="turno">
+                <option value="Manhã">Manhã (08:00 - 12:00)</option>
+                <option value="Tarde">Tarde (13:00 - 17:00)</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn-save" onclick="salvarAgendamento()">Confirmar</button>
+                <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Verifica se está logado
-        const currentUser = sessionStorage.getItem('currentUser');
+        // Carrega dados do usuário
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        
         if (!currentUser) {
             window.location.href = 'index.html';
+        } else {
+            document.getElementById('userName').innerHTML = `<i class="fas fa-user"></i> ${currentUser.name}`;
         }
 
+        // Array para armazenar agendamentos
+        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+
+        // Função para atualizar a tabela
+        function atualizarTabela() {
+            const tbody = document.getElementById('agendamentosList');
+            
+            if (agendamentos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666;">Nenhum agendamento encontrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = agendamentos.map(ag => `
+                <tr>
+                    <td>${new Date(ag.data).toLocaleDateString('pt-BR')} - ${ag.turno}</td>
+                    <td>${ag.insumo}</td>
+                    <td>${ag.quantidade}</td>
+                    <td><span class="status ${ag.status.toLowerCase()}">${ag.status}</span></td>
+                    <td>
+                        <button onclick="cancelarAgendamento('${ag.id}')" style="background: none; border: none; color: #c33; cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Função para abrir modal
+        function abrirModal(insumo) {
+            document.getElementById('insumoSelect').value = insumo;
+            document.getElementById('modalTitle').textContent = `Agendar ${insumo}`;
+            document.getElementById('agendamentoModal').classList.add('show');
+        }
+
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('agendamentoModal').classList.remove('show');
+        }
+
+        // Função para salvar agendamento
+        function salvarAgendamento() {
+            const insumo = document.getElementById('insumoSelect').value;
+            const quantidade = document.getElementById('quantidade').value;
+            const data = document.getElementById('dataAgendamento').value;
+            const turno = document.getElementById('turno').value;
+
+            if (!quantidade || !data) {
+                alert('Preencha todos os campos!');
+                return;
+            }
+
+            const novoAgendamento = {
+                id: Date.now().toString(),
+                insumo,
+                quantidade,
+                data,
+                turno,
+                status: 'Confirmado'
+            };
+
+            agendamentos.push(novoAgendamento);
+            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+            
+            atualizarTabela();
+            fecharModal();
+            
+            // Limpar campos
+            document.getElementById('quantidade').value = '';
+            document.getElementById('dataAgendamento').value = '';
+        }
+
+        // Função para cancelar agendamento
+        function cancelarAgendamento(id) {
+            if (confirm('Deseja realmente cancelar este agendamento?')) {
+                agendamentos = agendamentos.filter(ag => ag.id !== id);
+                localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+                atualizarTabela();
+            }
+        }
+
+        // Função de logout
         function logout() {
             sessionStorage.removeItem('currentUser');
             window.location.href = 'index.html';
+        }
+
+        // Carregar dados iniciais
+        atualizarTabela();
+
+        // Animar números dos cards
+        function animarNumero(elemento, valor) {
+            let atual = 0;
+            const incremento = Math.ceil(valor / 50);
+            const timer = setInterval(() => {
+                atual += incremento;
+                if (atual >= valor) {
+                    elemento.textContent = valor;
+                    clearInterval(timer);
+                } else {
+                    elemento.textContent = atual;
+                }
+            }, 20);
+        }
+
+        animarNumero(document.getElementById('totalPaletes'), 150);
+        animarNumero(document.getElementById('totalCaixas'), 320);
+        animarNumero(document.getElementById('totalCintas'), 500);
+        animarNumero(document.getElementById('paleteQtd'), 150);
+        animarNumero(document.getElementById('caixaQtd'), 320);
+        animarNumero(document.getElementById('cintaQtd'), 500);
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('agendamentoModal');
+            if (event.target === modal) {
+                fecharModal();
+            }
         }
     </script>
 </body>

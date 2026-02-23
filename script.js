@@ -1,4 +1,20 @@
-// Elementos do DOM
+
+
+
+
+//Login fixo: admin@comercialesperanca.com / 123456
+
+// Imagem de fundo com paletes
+/*
+// Cores amarelo suave e cinza profissional
+
+Elementos decorativos (faixas e círculos)
+
+Logo do Comercial Esperança
+
+ Página de agendamento funcional - 22/02/2026 23:28*/
+
+// LINHA 1: Elementos do DOM
 const loginTab = document.getElementById('loginTab');
 const registerTab = document.getElementById('registerTab');
 const loginForm = document.getElementById('loginForm');
@@ -7,7 +23,14 @@ const forgotPassword = document.getElementById('forgotPassword');
 const modal = document.getElementById('forgotModal');
 const closeModal = document.querySelector('.close');
 
-// Alternar entre Login e Cadastro
+// LINHA 9: USUÁRIO FIXO PARA TESTE
+const USUARIO_FIXO = {
+    nome: "Administrador",
+    email: "admin@comercialesperanca.com",
+    senha: "123456"
+};
+
+// LINHA 16: Alternar entre Login e Cadastro
 loginTab.addEventListener('click', () => {
     loginTab.classList.add('active');
     registerTab.classList.remove('active');
@@ -22,7 +45,7 @@ registerTab.addEventListener('click', () => {
     loginForm.classList.remove('active');
 });
 
-// Mostrar/Esconder senha
+// LINHA 30: Mostrar/Esconder senha
 document.querySelectorAll('.toggle-password').forEach(icon => {
     icon.addEventListener('click', function() {
         const input = this.previousElementSibling;
@@ -38,7 +61,7 @@ document.querySelectorAll('.toggle-password').forEach(icon => {
     });
 });
 
-// Modal de esqueceu senha
+// LINHA 44: Modal de esqueceu senha
 forgotPassword.addEventListener('click', (e) => {
     e.preventDefault();
     modal.classList.add('show');
@@ -54,31 +77,67 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Sistema de armazenamento local (simulando banco de dados)
+// LINHA 58: Sistema de armazenamento local
 const users = JSON.parse(localStorage.getItem('users')) || [];
 
-// Função para mostrar mensagem
+// LINHA 61: Função para mostrar mensagem
 function showMessage(form, message, isSuccess = false) {
-    // Remove mensagem anterior
     const oldMessage = form.querySelector('.error-message, .success-message');
     if (oldMessage) oldMessage.remove();
 
-    // Cria nova mensagem
     const messageDiv = document.createElement('div');
     messageDiv.className = isSuccess ? 'success-message' : 'error-message';
     messageDiv.textContent = message;
     form.insertBefore(messageDiv, form.firstChild);
 
-    // Remove após 3 segundos
     setTimeout(() => messageDiv.remove(), 3000);
 }
 
-// Validação de email
+// LINHA 73: Validação de email
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// CADASTRO
+// LINHA 77: LOGIN
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    if (!email || !password) {
+        showMessage(loginForm, 'Preencha todos os campos!');
+        return;
+    }
+
+    // LINHA 88: Verifica se é o usuário fixo
+    if (email === USUARIO_FIXO.email && password === USUARIO_FIXO.senha) {
+        showMessage(loginForm, `Bem-vindo, ${USUARIO_FIXO.nome}!`, true);
+
+        sessionStorage.setItem('currentUser', JSON.stringify(USUARIO_FIXO));
+
+        setTimeout(() => {
+            window.location.href = 'agendamento.html';
+        }, 1500);
+    } 
+    else {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            showMessage(loginForm, `Bem-vindo, ${user.name}!`, true);
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            
+            setTimeout(() => {
+                window.location.href = 'agendamento.html';
+            }, 1500);
+        } else {
+            showMessage(loginForm, 'E-mail ou senha incorretos!');
+        }
+    }
+});
+
+// LINHA 115: CADASTRO
 registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -87,7 +146,6 @@ registerForm.addEventListener('submit', (e) => {
     const password = document.getElementById('regPassword').value;
     const confirmPassword = document.getElementById('regConfirmPassword').value;
 
-    // Validações
     if (!name || !email || !password || !confirmPassword) {
         showMessage(registerForm, 'Preencha todos os campos!');
         return;
@@ -108,63 +166,29 @@ registerForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // Verifica se usuário já existe
     if (users.some(user => user.email === email)) {
         showMessage(registerForm, 'Este e-mail já está cadastrado!');
         return;
     }
 
-    // Salva usuário
     users.push({
         name,
         email,
-        password // Em produção, isso deveria ser criptografado!
+        password
     });
 
     localStorage.setItem('users', JSON.stringify(users));
 
     showMessage(registerForm, 'Cadastro realizado com sucesso!', true);
 
-    // Limpa formulário
     registerForm.reset();
 
-    // Muda para a aba de login após 2 segundos
     setTimeout(() => {
         loginTab.click();
     }, 2000);
 });
 
-// LOGIN
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('loginEmail').value.trim();
-    const password = document.getElementById('loginPassword').value;
-
-    if (!email || !password) {
-        showMessage(loginForm, 'Preencha todos os campos!');
-        return;
-    }
-
-    // Busca usuário
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-        showMessage(loginForm, `Bem-vindo, ${user.name}!`, true);
-
-        // Salva sessão
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
-
-        // Redireciona para página de agendamento após 1.5 segundos
-        setTimeout(() => {
-            window.location.href = 'agendamento.html';
-        }, 1500);
-    } else {
-        showMessage(loginForm, 'E-mail ou senha incorretos!');
-    }
-});
-
-// Recuperar senha
+// LINHA 159: Recuperar senha
 document.getElementById('resetPassword').addEventListener('click', () => {
     const email = document.getElementById('resetEmail').value.trim();
 
@@ -173,23 +197,25 @@ document.getElementById('resetPassword').addEventListener('click', () => {
         return;
     }
 
-    const user = users.find(u => u.email === email);
-
-    if (user) {
-        alert(`Instruções enviadas para ${email} (simulação)`);
+    if (email === USUARIO_FIXO.email) {
+        alert(`A senha do administrador é: ${USUARIO_FIXO.senha}`);
     } else {
-        alert('E-mail não encontrado!');
+        const user = users.find(u => u.email === email);
+        if (user) {
+            alert(`A senha cadastrada é: ${user.password}`);
+        } else {
+            alert('E-mail não encontrado!');
+        }
     }
 
     modal.classList.remove('show');
     document.getElementById('resetEmail').value = '';
 });
 
-// Verifica se já está logado (para redirecionar)
+// LINHA 180: Verifica se já está logado
 window.addEventListener('load', () => {
     const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser && window.location.pathname.includes('index')) {
-        // Se já estiver logado, vai direto pro agendamento
         window.location.href = 'agendamento.html';
     }
 });

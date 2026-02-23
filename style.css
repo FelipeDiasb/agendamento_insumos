@@ -2,68 +2,210 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
 }
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(145deg, #2C3E50, #34495E);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ELEMENTOS DECORATIVOS - CÍRCULOS E FAixAS */
+body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    right: -5%;
+    width: 300px;
+    height: 300px;
+    background: rgba(190, 17, 206, 0.747);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: rgba(236, 240, 241, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* LOGO */
+.logo-container {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.507);
+    padding: 10px 25px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 229, 92, 0.3);
+    transition: all 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 229, 92, 0.2);
+    border-color: #FFE55C;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+    display: block;
 }
 
 .container {
     display: flex;
     min-height: 100vh;
+    width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
-/* Lado esquerdo - Área visual */
+/* LADO ESQUERDO - Gradiente amarelo suave */
 .left-side {
     flex: 1;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
-                url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3') center/cover;
+    /* Atualizado para usar a imagem de fundo com gradiente */
+    background: linear-gradient(135deg, rgba(54, 54, 54, 0.85), rgba(105, 104, 104, 0.37)), 
+                url('https://image2url.com/r2/default/images/1771812666673-e9fc4154-5ada-498e-a85e-909f02e9e25c.png') center/cover;
+    background-blend-mode: overlay; /* Mistura o gradiente com a imagem */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    padding: 2rem;
+    color: #c2c6c9; /* <--- ESTA É A LINHA DA COR */
+    padding: 2rem; 
+    position: relative;
+    overflow: hidden;
+}
+
+/* ELEMENTOS DECORATIVOS NO LADO ESQUERDO */
+.left-side::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.left-side::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -5%;
+    width: 300px;
+    height: 300px;
+    background: rgba(44, 62, 80, 0.1);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    pointer-events: none;
+}
+
+/* FAIXAS TRANSPARENTES */
+.left-side .faixa-1 {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    width: 150px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+.left-side .faixa-2 {
+    position: absolute;
+    bottom: 20%;
+    left: 5%;
+    width: 200px;
+    height: 3px;
+    background: rgba(44, 62, 80, 0.1);
+    transform: rotate(-30deg);
+    border-radius: 2px;
+}
+
+.left-side .faixa-3 {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
 
 .left-side .content {
     max-width: 500px;
+    position: relative;
+    z-index: 2;
 }
 
 .left-side h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    animation: fadeInUp 0.8s ease;
+    font-weight: 700;
+    color: #56585e; /* <--- ESTA É A LINHA DA COR do título Sistema de agendamento */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.849); /* Sombra suave para destacar o título */
 }
 
 .left-side p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
     opacity: 0.9;
-    animation: fadeInUp 0.8s ease 0.1s both;
+    color: #989499; /* <--- ESTA É A LINHA DA COR da descrição "Gerencie seus insumos de forma eficiente" */
+    font-weight: 400;
 }
 
 .features {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .feature {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 1.1rem;
-    animation: fadeInUp 0.8s ease 0.2s both;
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+    background: rgba(44, 62, 80, 0.1);
+    border-radius: 12px;
+    border-left: 4px solid #2C3E50;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(44, 62, 80, 0.15);
+    transform: translateX(8px);
+    border-left-color: white;
 }
 
 .feature i {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     width: 2rem;
+    color: #2C3E50;
 }
 
-/* Lado direito - Formulário */
+.feature span {
+    color: #2C3E50;
+    font-weight: 500;
+}
+
+/* LADO DIREITO */
 .right-side {
     flex: 1;
     background: white;
@@ -71,11 +213,79 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ELEMENTOS DECORATIVOS NO LADO DIREITO */
+.right-side::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 229, 92, 0.08);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    pointer-events: none;
+}
+
+.right-side::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 250px;
+    height: 250px;
+    background: rgba(236, 240, 241, 0.5);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    pointer-events: none;
+}
+
+/* FAIXAS NO LADO DIREITO */
+.right-side .faixa-direita-1 {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    width: 120px;
+    height: 3px;
+    background: rgba(255, 229, 92, 0.2);
+    transform: rotate(20deg);
+    border-radius: 2px;
+}
+
+.right-side .faixa-direita-2 {
+    position: absolute;
+    bottom: 25%;
+    right: 8%;
+    width: 180px;
+    height: 3px;
+    background: rgba(44, 62, 80, 0.08);
+    transform: rotate(-15deg);
+    border-radius: 2px;
+}
+
+.right-side .circulo-decorativo {
+    position: absolute;
+    top: 15%;
+    right: 15%;
+    width: 60px;
+    height: 60px;
+    border: 2px dashed rgba(255, 229, 92, 0.3);
+    border-radius: 50%;
 }
 
 .form-container {
     width: 100%;
     max-width: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(44, 62, 80, 0.15);
+    border: 1px solid rgba(255, 229, 92, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
 }
 
 /* Tabs */
@@ -83,7 +293,7 @@ body {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #ECF0F1;
     padding-bottom: 1rem;
 }
 
@@ -92,16 +302,16 @@ body {
     padding: 0.75rem;
     border: none;
     background: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: #666;
+    color: #95A5A6;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
 }
 
 .tab.active {
-    color: #667eea;
+    color: #2C3E50;
 }
 
 .tab.active::after {
@@ -111,28 +321,30 @@ body {
     left: 0;
     width: 100%;
     height: 2px;
-    background: #667eea;
-    animation: slideIn 0.3s ease;
+    background: linear-gradient(135deg, #FFE55C, #F1C40F);
 }
 
 /* Formulários */
 .form {
     display: none;
-    animation: fadeIn 0.5s ease;
 }
 
 .form.active {
     display: block;
+    animation: fadeIn 0.4s ease;
 }
 
 .form h2 {
-    margin-bottom: 0.5rem;
-    color: #333;
+    margin-bottom: 0.3rem;
+    color: #2C3E50;
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .form p {
-    color: #666;
+    color: #7F8C8D;
     margin-bottom: 2rem;
+    font-size: 0.9rem;
 }
 
 .input-group {
@@ -145,8 +357,10 @@ body {
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: #95A5A6;
     transition: all 0.3s;
+    z-index: 1;
+    font-size: 1rem;
 }
 
 .input-group i.toggle-password {
@@ -156,26 +370,27 @@ body {
 }
 
 .input-group i.toggle-password:hover {
-    color: #667eea;
+    color: #F1C40F;
 }
 
 .input-group input {
     width: 100%;
     padding: 1rem 1rem 1rem 2.5rem;
-    border: 2px solid #eee;
+    border: 2px solid #ECF0F1;
     border-radius: 12px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s;
+    background: white;
 }
 
 .input-group input:focus {
-    border-color: #667eea;
+    border-color: #FFE55C;
     outline: none;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 4px rgba(255, 229, 92, 0.15);
 }
 
 .input-group input:focus + i {
-    color: #667eea;
+    color: #F1C40F;
 }
 
 /* Checkbox e links */
@@ -183,37 +398,45 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
-    color: #666;
+    margin-bottom: 1.8rem;
+    color: #7F8C8D;
+    font-size: 0.9rem;
 }
 
 .remember-forgot a, .terms a {
-    color: #667eea;
+    color: #2C3E50;
     text-decoration: none;
     font-weight: 500;
-}
-
-.remember-forgot a:hover, .terms a:hover {
-    text-decoration: underline;
-}
-
-/* Botões */
-.btn-login, .btn-register, #resetPassword {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
     transition: all 0.3s;
 }
 
+.remember-forgot a:hover, .terms a:hover {
+    color: #F1C40F;
+}
+
+/* Botões  - fazer alteração nas cores e layout*/
+.btn-login, .btn-register, #resetPassword {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(132deg, #e2c5748e, #bdaa03);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 229, 92, 0.3);
+}
+
 .btn-login:hover, .btn-register:hover, #resetPassword:hover {
+    background: linear-gradient(135deg, #F1C40F, #FFE55C);
+    color: #2C3E50;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 10px 25px rgba(241, 196, 15, 0.3);
+    border-color: transparent;
 }
 
 /* Modal */
@@ -224,10 +447,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(44, 62, 80, 0.5);
+    backdrop-filter: blur(5px);
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s ease;
+    z-index: 2000;
 }
 
 .modal.show {
@@ -241,126 +465,89 @@ body {
     max-width: 400px;
     width: 90%;
     position: relative;
-    animation: slideUp 0.3s ease;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border-top: 4px solid #FFE55C;
 }
 
 .close {
     position: absolute;
     top: 1rem;
-    right: 1.5rem;
+    right: 1.2rem;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #999;
-    transition: color 0.3s;
+    color: #95A5A6;
+    transition: all 0.3s;
 }
 
 .close:hover {
-    color: #333;
+    color: #F1C40F;
+    transform: rotate(90deg);
 }
 
-.modal-content h3 {
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.modal-content p {
-    margin-bottom: 1.5rem;
-    color: #666;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid #eee;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-}
-
-.modal-content input:focus {
-    border-color: #667eea;
-    outline: none;
-}
-
-/* Mensagens de erro/sucesso */
-.error-message {
-    background: #fee;
-    color: #c33;
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
-    animation: shake 0.5s ease;
-}
-
-.success-message {
-    background: #efe;
-    color: #3c3;
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    text-align: center;
-    animation: fadeIn 0.5s ease;
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+    .logo-container {
+        top: 15px;
+        left: 15px;
+        padding: 8px 20px;
+    }
+    
+    .logo {
+        height: 30px;
+    }
+    
     .container {
         flex-direction: column;
     }
     
+    .left-side, .right-side {
+        width: 100%;
+    }
+    
     .left-side {
-        padding: 3rem 1rem;
+        padding: 5rem 1.5rem 2rem;
+    }
+    
+    .right-side {
+        padding: 2rem 1.5rem;
     }
     
     .left-side h1 {
         font-size: 2rem;
     }
     
-    .right-side {
-        padding: 2rem 1rem;
+    /* Ajuste elementos decorativos no mobile */
+    .left-side .faixa-1,
+    .left-side .faixa-2,
+    .left-side .faixa-3,
+    .right-side .faixa-direita-1,
+    .right-side .faixa-direita-2,
+    .right-side .circulo-decorativo {
+        opacity: 0.3;
     }
 }
 
-/* Animações */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+@media (max-width: 480px) {
+    .left-side h1 {
+        font-size: 1.6rem;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .form-container {
+        padding: 1.8rem;
     }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from {
-        transform: scaleX(0);
+    
+    .tabs {
+        flex-direction: column;
+        gap: 0.5rem;
     }
-    to {
-        transform: scaleX(1);
+    
+    .tab {
+        width: 100%;
     }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
 }

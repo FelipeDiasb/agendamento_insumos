@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Agendamento - Login</title>
+    <title>Comercial Esperança - Sistema de Agendamento</title>
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    <!-- LOGO NO CANTO SUPERIOR ESQUERDO -->
+    <div class="logo-container">
+        <img src="imagens/logo-comercial-esperanca.png" alt="Comercial Esperança" class="logo" 
+             onerror="this.style.display='none'; document.getElementById('logo-text').style.display='flex';">
+        <div id="logo-text" class="logo-text" style="display: none;">
+            <i class="fas fa-store"></i>
+            <span>Comercial Esperança</span>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Área da imagem/lado visual -->
         <div class="left-side">
@@ -18,11 +28,15 @@
                 <div class="features">
                     <div class="feature">
                         <i class="fas fa-pallet"></i>
-                        <span>Controle de Paletes</span>
+                        <span>Paletes</span>
                     </div>
                     <div class="feature">
                         <i class="fas fa-box"></i>
-                        <span>Gestão de Caixas Plásticas</span>
+                        <span>Caixas Plásticas</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-tape"></i>
+                        <span>Cintas para Paletes</span>
                     </div>
                     <div class="feature">
                         <i class="fas fa-calendar-check"></i>
