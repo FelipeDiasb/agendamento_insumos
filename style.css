@@ -2,17 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
     min-height: 100vh;
-    background: linear-gradient(145deg, #2C3E50, #34495E);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     position: relative;
     overflow-x: hidden;
 }
 
-/* ELEMENTOS DECORATIVOS - CÍRCULOS E FAixAS */
+/* ELEMENTOS DECORATIVOS - CÍRCULOS E FAIXAS */
 body::before {
     content: '';
     position: fixed;
@@ -20,7 +20,7 @@ body::before {
     right: -5%;
     width: 300px;
     height: 300px;
-    background: rgba(190, 17, 206, 0.747);
+    background: rgba(190, 17, 206, 0.3);
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
@@ -43,26 +43,32 @@ body::after {
 .logo-container {
     position: fixed;
     top: 25px;
-    left: 25px;
-    z-index: 9999;
-    background: rgba(255, 255, 255, 0.507);
-    padding: 10px 25px;
+    left: 35px;
+    z-index: 1000;
+    /* Fundo removido - completamente transparente */
+    background: transparent;
+    padding: 15px 30px;  /* Aumentado o padding */
     border-radius: 50px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 229, 92, 0.3);
+    box-shadow: none;  /* Sombra removida */
+    border: none;  /* Borda removida */
     transition: all 0.3s ease;
+    /* backdrop-filter removido */
 }
 
 .logo-container:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(255, 229, 92, 0.2);
-    border-color: #FFE55C;
+    /* Efeito sutil no hover, sem fundo */
 }
 
 .logo {
-    height: 40px;
+    height: 60px;  /* Aumentado de 40px para 60px */
     width: auto;
     display: block;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover .logo {
+    transform: scale(1.05);  /* Efeito sutil de zoom no hover */
 }
 
 .container {
@@ -73,18 +79,16 @@ body::after {
     z-index: 1;
 }
 
-/* LADO ESQUERDO - Gradiente amarelo suave */
+/* LADO ESQUERDO - Gradiente roxo com imagem */
 .left-side {
     flex: 1;
-    /* Atualizado para usar a imagem de fundo com gradiente */
-    background: linear-gradient(135deg, rgba(54, 54, 54, 0.85), rgba(105, 104, 104, 0.37)), 
-                url('https://image2url.com/r2/default/images/1771812666673-e9fc4154-5ada-498e-a85e-909f02e9e25c.png') center/cover;
-    background-blend-mode: overlay; /* Mistura o gradiente com a imagem */
+    background: linear-gradient(135deg, rgba(158, 156, 154, 0.589), rgba(206, 3, 145, 0.685)), 
+                url('https://image2url.com/r2/default/images/1771889861168-4b428221-8fd5-439f-aee9-4f54af16fa52.jpg') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #c2c6c9; /* <--- ESTA É A LINHA DA COR */
-    padding: 2rem; 
+    color: white;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
 }
@@ -97,7 +101,7 @@ body::after {
     left: -10%;
     width: 400px;
     height: 400px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -105,11 +109,11 @@ body::after {
 .left-side::after {
     content: '';
     position: absolute;
-    bottom: -20%;
+    bottom: 4%;
     right: -5%;
     width: 300px;
     height: 300px;
-    background: rgba(44, 62, 80, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     pointer-events: none;
 }
@@ -132,7 +136,7 @@ body::after {
     left: 5%;
     width: 200px;
     height: 3px;
-    background: rgba(44, 62, 80, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     transform: rotate(-30deg);
     border-radius: 2px;
 }
@@ -143,7 +147,7 @@ body::after {
     left: 15%;
     width: 80px;
     height: 80px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
 
@@ -156,17 +160,18 @@ body::after {
 .left-side h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    font-weight: 700;
-    color: #56585e; /* <--- ESTA É A LINHA DA COR do título Sistema de agendamento */
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.849); /* Sombra suave para destacar o título */
+    animation: fadeInUp 0.8s ease;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .left-side p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 2.5rem;
     opacity: 0.9;
-    color: #989499; /* <--- ESTA É A LINHA DA COR da descrição "Gerencie seus insumos de forma eficiente" */
-    font-weight: 400;
+    color: white;
+    font-weight: 300;
+    animation: fadeInUp 0.8s ease 0.1s both;
 }
 
 .features {
@@ -179,29 +184,29 @@ body::after {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 1rem 1.2rem;
-    background: rgba(44, 62, 80, 0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    border-left: 4px solid #2C3E50;
+    border-left: 4px solid white;
     backdrop-filter: blur(5px);
     transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease 0.2s both;
 }
 
 .feature:hover {
-    background: rgba(44, 62, 80, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateX(8px);
-    border-left-color: white;
 }
 
 .feature i {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     width: 2rem;
-    color: #2C3E50;
+    color: white;
 }
 
 .feature span {
-    color: #2C3E50;
+    color: white;
     font-weight: 500;
 }
 
@@ -225,7 +230,7 @@ body::after {
     right: -10%;
     width: 300px;
     height: 300px;
-    background: rgba(255, 229, 92, 0.08);
+    background: rgba(102, 126, 234, 0.05);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     pointer-events: none;
 }
@@ -237,7 +242,7 @@ body::after {
     left: -5%;
     width: 250px;
     height: 250px;
-    background: rgba(236, 240, 241, 0.5);
+    background: rgba(118, 75, 162, 0.05);
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     pointer-events: none;
 }
@@ -249,19 +254,8 @@ body::after {
     left: 5%;
     width: 120px;
     height: 3px;
-    background: rgba(255, 229, 92, 0.2);
+    background: rgba(102, 126, 234, 0.15);
     transform: rotate(20deg);
-    border-radius: 2px;
-}
-
-.right-side .faixa-direita-2 {
-    position: absolute;
-    bottom: 25%;
-    right: 8%;
-    width: 180px;
-    height: 3px;
-    background: rgba(44, 62, 80, 0.08);
-    transform: rotate(-15deg);
     border-radius: 2px;
 }
 
@@ -271,29 +265,33 @@ body::after {
     right: 15%;
     width: 60px;
     height: 60px;
-    border: 2px dashed rgba(255, 229, 92, 0.3);
+    border: 2px dashed rgba(102, 126, 234, 0.2);
     border-radius: 50%;
+}
+ /* Conteúdo do lado direito  formulário de login*/
+    .right-side {
+    flex: 1;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .form-container {
     width: 100%;
     max-width: 400px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(44, 62, 80, 0.15);
-    border: 1px solid rgba(255, 229, 92, 0.3);
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 2;
 }
+
+
+
 
 /* Tabs */
 .tabs {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #ECF0F1;
+    border-bottom: 2px solid #f0f0f0;
     padding-bottom: 1rem;
 }
 
@@ -304,14 +302,14 @@ body::after {
     background: none;
     font-size: 1rem;
     font-weight: 600;
-    color: #95A5A6;
+    color: #999;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
 }
 
 .tab.active {
-    color: #2C3E50;
+    color: #667eea;
 }
 
 .tab.active::after {
@@ -321,7 +319,8 @@ body::after {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(135deg, #FFE55C, #F1C40F);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    animation: slideIn 0.3s ease;
 }
 
 /* Formulários */
@@ -335,16 +334,16 @@ body::after {
 }
 
 .form h2 {
-    margin-bottom: 0.3rem;
-    color: #2C3E50;
+    margin-bottom: 0.5rem;
+    color: #333;
     font-size: 1.8rem;
     font-weight: 600;
 }
 
 .form p {
-    color: #7F8C8D;
+    color: #666;
     margin-bottom: 2rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .input-group {
@@ -357,7 +356,7 @@ body::after {
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #95A5A6;
+    color: #999;
     transition: all 0.3s;
     z-index: 1;
     font-size: 1rem;
@@ -370,13 +369,13 @@ body::after {
 }
 
 .input-group i.toggle-password:hover {
-    color: #F1C40F;
+    color: #667eea;
 }
 
 .input-group input {
     width: 100%;
     padding: 1rem 1rem 1rem 2.5rem;
-    border: 2px solid #ECF0F1;
+    border: 2px solid #f0f0f0;
     border-radius: 12px;
     font-size: 0.95rem;
     transition: all 0.3s;
@@ -384,13 +383,13 @@ body::after {
 }
 
 .input-group input:focus {
-    border-color: #FFE55C;
+    border-color: #667eea;
     outline: none;
-    box-shadow: 0 0 0 4px rgba(255, 229, 92, 0.15);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .input-group input:focus + i {
-    color: #F1C40F;
+    color: #667eea;
 }
 
 /* Checkbox e links */
@@ -398,28 +397,29 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.8rem;
-    color: #7F8C8D;
+    margin-bottom: 1.5rem;
+    color: #666;
     font-size: 0.9rem;
 }
 
 .remember-forgot a, .terms a {
-    color: #2C3E50;
+    color: #667eea;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s;
 }
 
 .remember-forgot a:hover, .terms a:hover {
-    color: #F1C40F;
+    color: #764ba2;
+    text-decoration: underline;
 }
 
-/* Botões  - fazer alteração nas cores e layout*/
+/* Botões */
 .btn-login, .btn-register, #resetPassword {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(132deg, #e2c5748e, #bdaa03);
-    color: rgb(255, 255, 255);
+    background: linear-gradient(135deg, #fd48b8, #764ba2);
+    color: white;
     border: none;
     border-radius: 12px;
     font-size: 1rem;
@@ -428,15 +428,11 @@ body::after {
     transition: all 0.3s;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border: 1px solid rgba(255, 229, 92, 0.3);
 }
 
 .btn-login:hover, .btn-register:hover, #resetPassword:hover {
-    background: linear-gradient(135deg, #F1C40F, #FFE55C);
-    color: #2C3E50;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(241, 196, 15, 0.3);
-    border-color: transparent;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
 }
 
 /* Modal */
@@ -447,7 +443,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(44, 62, 80, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px);
     align-items: center;
     justify-content: center;
@@ -456,6 +452,7 @@ body::after {
 
 .modal.show {
     display: flex;
+    animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
@@ -465,8 +462,9 @@ body::after {
     max-width: 400px;
     width: 90%;
     position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    border-top: 4px solid #FFE55C;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-top: 4px solid #667eea;
+    animation: slideUp 0.3s ease;
 }
 
 .close {
@@ -475,19 +473,106 @@ body::after {
     right: 1.2rem;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #95A5A6;
+    color: #999;
     transition: all 0.3s;
 }
 
 .close:hover {
-    color: #F1C40F;
+    color: #667eea;
     transform: rotate(90deg);
 }
 
+.modal-content h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.modal-content input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+/* Mensagens de erro/sucesso */
+.error-message {
+    background: #fee;
+    color: #c33;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: shake 0.5s ease;
+    border-left: 4px solid #c33;
+}
+
+.success-message {
+    background: #efe;
+    color: #27ae60;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+    border-left: 4px solid #27ae60;
+}
+
 /* Animações */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
 /* Responsividade */
@@ -511,7 +596,7 @@ body::after {
     }
     
     .left-side {
-        padding: 5rem 1.5rem 2rem;
+        padding: 5rem 1.5rem 3rem;
     }
     
     .right-side {
@@ -522,20 +607,23 @@ body::after {
         font-size: 2rem;
     }
     
+    .left-side p {
+        font-size: 1.1rem;
+    }
+    
     /* Ajuste elementos decorativos no mobile */
     .left-side .faixa-1,
     .left-side .faixa-2,
     .left-side .faixa-3,
     .right-side .faixa-direita-1,
-    .right-side .faixa-direita-2,
     .right-side .circulo-decorativo {
-        opacity: 0.3;
+        opacity: 0.2;
     }
 }
 
 @media (max-width: 480px) {
     .left-side h1 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     
     .form-container {
@@ -549,5 +637,11 @@ body::after {
     
     .tab {
         width: 100%;
+    }
+    
+    .remember-forgot, .terms {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
     }
 }
