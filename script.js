@@ -117,7 +117,7 @@ loginForm.addEventListener('submit', (e) => {
         sessionStorage.setItem('currentUser', JSON.stringify(USUARIO_FIXO));
 
         setTimeout(() => {
-            window.location.href = 'agendamento.html';
+            window.location.href = 'painel.html';
         }, 1500);
     } 
     else {

@@ -3,282 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comercial Esperança - Agendamentos</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Comercial Esperança - Painel de Agendamentos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* LOGO - igual ao style.css */
+        /* ELEMENTOS DECORATIVOS */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            right: -5%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -10%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* LOGO */
         .logo-container {
             position: fixed;
-            top: 25px;
-            left: 25px;
-            z-index: 9999;
-            background: white;
-            padding: 8px 20px;
-            border-radius: 60px;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.25);
-            border: 2px solid rgba(255, 182, 193, 0.6);
-            backdrop-filter: blur(5px);
+            top: 35px;
+            left: 35px;
+            z-index: 1000;
+            background: transparent;
+            padding: 15px 30px;
+            border-radius: 50px;
             transition: all 0.3s ease;
-            animation: slideDown 0.6s ease;
-            max-width: 250px;
         }
 
         .logo-container:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.35);
-            border-color: #FF69B4;
         }
 
         .logo {
-            height: 45px;
+            height: 60px;
             width: auto;
             display: block;
             transition: transform 0.3s ease;
         }
 
         .logo-container:hover .logo {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
-        .logo-text {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #FF69B4;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .logo-text i {
-            font-size: 1.8rem;
-            color: #FF69B4;
-        }
-
-        /* Header */
+        /* HEADER PROFISSIONAL */
         .header {
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            color: white;
-            padding: 1rem 2rem 1rem 280px; /* Espaço para o logo */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem 1rem 220px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .logo h1 {
+        .header h1 {
+            color: white;
             font-size: 1.5rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h1 i {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 12px;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .user-info span {
+            color: white;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-info span i {
+            font-size: 1.1rem;
+            color: #FFE55C;
         }
 
         .btn-logout {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-logout:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Container principal */
+        /* MAIN CONTAINER */
         .main-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 2rem auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 10;
         }
 
-        /* Cards de resumo */
+        /* CARDS DE RESUMO */
         .summary-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            transition: all 0.3s;
-            border-bottom: 4px solid transparent;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.15);
-        }
-
-        .card.palete {
-            border-bottom-color: #FFB6C1;
-        }
-
-        .card.caixa {
-            border-bottom-color: #FF69B4;
-        }
-
-        .card.cinta {
-            border-bottom-color: #DB7093;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .card-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            border-radius: 12px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
         }
 
         .card-icon i {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: white;
         }
 
         .card-info h3 {
-            color: #666;
-            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
             margin-bottom: 0.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .card-info .number {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            color: #333;
+            color: white;
+            line-height: 1.2;
         }
 
-        /* Título da seção */
+        .card-info .unit {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        /* SEÇÃO DE INSUMOS */
         .section-title {
-            margin: 2rem 0 1.5rem;
-            color: #333;
-            font-size: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
+            margin: 2.5rem 0 1.5rem;
         }
 
         .section-title i {
-            color: #FF69B4;
+            font-size: 1.8rem;
+            color: #FFE55C;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 15px;
         }
 
-        /* Grid de insumos */
+        .section-title h2 {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .section-title p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: auto;
+            font-size: 0.95rem;
+        }
+
+        /* GRID DE INSUMOS */
         .insumos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
 
         .insumo-card {
-            background: white;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            border: 1px solid rgba(255,105,180,0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .insumo-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 45px rgba(255,105,180,0.25);
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
         }
 
         .insumo-header {
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            color: white;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+            padding: 1.8rem;
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insumo-header::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
         }
 
         .insumo-header i {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+            font-size: 3.5rem;
+            color: #FFE55C;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 5px 15px rgba(255, 229, 92, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
-        .insumo-header h2 {
-            font-size: 1.5rem;
+        .insumo-header h3 {
+            font-size: 1.6rem;
+            color: white;
             font-weight: 600;
+            position: relative;
+            z-index: 2;
         }
 
         .insumo-body {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
         .info-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #ffe4ec;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
         }
 
         .info-item .label {
-            color: #666;
-            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-item .label i {
+            font-size: 0.9rem;
+            color: #FFE55C;
+            width: 20px;
         }
 
         .info-item .value {
-            color: #333;
+            color: white;
             font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
         }
 
         .btn-agendar {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-agendar:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,105,180,0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2, #667eea);
         }
 
-        /* Tabela de agendamentos */
-        .agendamentos-table {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        /* TABELA DE AGENDAMENTOS */
+        .agendamentos-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .agendamentos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .agendamentos-header h3 {
+            color: white;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .agendamentos-header h3 i {
+            color: #FFE55C;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .filtro-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filtro-btn:hover,
+        .filtro-btn.active {
+            background: #FFE55C;
+            color: #2C3E50;
+            border-color: #FFE55C;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 16px;
         }
 
         table {
@@ -286,50 +439,74 @@
             border-collapse: collapse;
         }
 
-        thead {
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
-            color: white;
+        thead tr {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         th {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             text-align: left;
+            color: white;
             font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         td {
-            padding: 1rem;
-            border-bottom: 1px solid #ffe4ec;
+            padding: 1.2rem 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        tr:hover {
-            background: #fff9fb;
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.05);
         }
 
-        .status {
+        .status-badge {
             padding: 0.3rem 1rem;
-            border-radius: 20px;
+            border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 500;
             display: inline-block;
         }
 
-        .status.confirmado {
-            background: #d4edda;
-            color: #155724;
+        .status-badge.confirmado {
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+            border: 1px solid rgba(46, 213, 115, 0.3);
         }
 
-        .status.pendente {
-            background: #fff3cd;
-            color: #856404;
+        .status-badge.pendente {
+            background: rgba(255, 165, 2, 0.2);
+            color: #ffa502;
+            border: 1px solid rgba(255, 165, 2, 0.3);
         }
 
-        .status.cancelado {
-            background: #f8d7da;
-            color: #721c24;
+        .status-badge.cancelado {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.3);
         }
 
-        /* Modal de agendamento */
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #ff4757;
+            border-color: #ff4757;
+            transform: scale(1.1);
+        }
+
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -337,7 +514,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             align-items: center;
             justify-content: center;
             z-index: 2000;
@@ -345,37 +523,49 @@
 
         .modal.show {
             display: flex;
+            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
             background: white;
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 30px;
             max-width: 500px;
             width: 90%;
             position: relative;
-            border-top: 4px solid #FF69B4;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid #667eea;
         }
 
         .modal-content h2 {
             margin-bottom: 1.5rem;
-            color: #333;
+            color: #2C3E50;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .modal-content input,
-        .modal-content select {
+        .modal-content h2 i {
+            color: #667eea;
+        }
+
+        .modal-content select,
+        .modal-content input {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ffe4ec;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            margin-bottom: 1.2rem;
             font-size: 1rem;
+            transition: all 0.3s;
         }
 
-        .modal-content input:focus,
-        .modal-content select:focus {
-            border-color: #FF69B4;
+        .modal-content select:focus,
+        .modal-content input:focus {
+            border-color: #667eea;
             outline: none;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
 
         .modal-buttons {
@@ -386,39 +576,78 @@
 
         .modal-buttons button {
             flex: 1;
-            padding: 0.8rem;
+            padding: 1rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 15px;
             font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .btn-save {
-            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
         }
 
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
         .btn-cancel {
-            background: #eee;
+            background: #f0f0f0;
             color: #666;
         }
 
-        /* Loading */
-        .loading {
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* LOADING */
+        .loading-spinner {
             text-align: center;
             padding: 2rem;
-            color: #666;
         }
 
-        .loading i {
+        .loading-spinner i {
+            font-size: 2rem;
+            color: white;
             animation: spin 1s linear infinite;
         }
 
-        /*animações */
-        @keyframes slideDown {
+        /* ANIMAÇÕES */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -426,32 +655,42 @@
             }
         }
 
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        /* Responsividade */
+        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
             .logo-container {
-                top: 15px;
-                left: 15px;
-                padding: 6px 15px;
+                top: 20px;
+                left: 20px;
+                padding: 10px 20px;
             }
-            
+
             .logo {
-                height: 35px;
+                height: 45px;
             }
-            
-            .logo-text {
-                font-size: 1rem;
-            }
-            
+
             .header {
-                padding: 1rem 1rem 1rem 120px;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 1rem;
+                padding: 5rem 1rem 1rem;
                 text-align: center;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
             }
 
             .summary-cards {
@@ -462,356 +701,375 @@
                 grid-template-columns: 1fr;
             }
 
-            table {
-                font-size: 0.85rem;
+            .agendamentos-header {
+                flex-direction: column;
+                gap: 1rem;
             }
 
-            th, td {
-                padding: 0.5rem;
+            .filtros {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .modal-content {
+                padding: 1.8rem;
             }
         }
 
         @media (max-width: 480px) {
-            .header {
-                padding-left: 100px;
+            .card {
+                padding: 1.2rem;
             }
-            
+
+            .card-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-icon i {
+                font-size: 1.8rem;
+            }
+
+            .card-info .number {
+                font-size: 1.8rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.4rem;
+            }
+
             .user-info {
                 flex-direction: column;
-                gap: 0.3rem;
+                gap: 0.8rem;
+                border-radius: 20px;
             }
-            
-            .card-icon {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .card-icon i {
-                font-size: 1.5rem;
-            }
-            
-            .card-info .number {
-                font-size: 1.4rem;
+
+            .btn-logout {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- LOGO NO CANTO SUPERIOR ESQUERDO -->
+    <!-- LOGO -->
     <div class="logo-container">
-        <img src="images/logo-comercial-esperanca.png" alt="Comercial Esperança" class="logo" 
-             onerror="this.style.display='none'; document.getElementById('logo-text-ag').style.display='flex';">
-        <div id="logo-text-ag" class="logo-text" style="display: none;">
-            <i class="fas fa-store"></i>
-            <span>Comercial Esperança</span>
-        </div>
+        <img src="imagens/logo-comercial-esperanca.png" alt="Comercial Esperança" class="logo">
     </div>
 
+    <!-- HEADER -->
     <div class="header">
-        <div class="logo">
-            <h1><i class="fas fa-calendar-alt"></i> Sistema de Agendamento</h1>
-        </div>
+        <h1>
+            <i class="fas fa-calendar-check"></i>
+            Painel de Agendamentos
+        </h1>
         <div class="user-info">
-            <span id="userName"><i class="fas fa-user"></i> </span>
+            <span id="userName">
+                <i class="fas fa-user-circle"></i>
+                Carregando...
+            </span>
             <button class="btn-logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Sair
+                <i class="fas fa-sign-out-alt"></i>
+                Sair
             </button>
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="main-container">
-        <!-- Cards de resumo -->
+        <!-- CARDS DE RESUMO -->
         <div class="summary-cards">
-            <div class="card palete">
+            <div class="card">
                 <div class="card-icon">
                     <i class="fas fa-pallet"></i>
                 </div>
                 <div class="card-info">
                     <h3>Paletes Disponíveis</h3>
-                    <div class="number" id="totalPaletes">150</div>
+                    <div>
+                        <span class="number" id="totalPaletes">150</span>
+                        <span class="unit">unidades</span>
+                    </div>
                 </div>
             </div>
-            <div class="card caixa">
+            <div class="card">
                 <div class="card-icon">
                     <i class="fas fa-box"></i>
                 </div>
                 <div class="card-info">
-                    <h3>Caixas Disponíveis</h3>
-                    <div class="number" id="totalCaixas">320</div>
+                    <h3>Caixas Plásticas</h3>
+                    <div>
+                        <span class="number" id="totalCaixas">320</span>
+                        <span class="unit">unidades</span>
+                    </div>
                 </div>
             </div>
-            <div class="card cinta">
+            <div class="card">
                 <div class="card-icon">
                     <i class="fas fa-tape"></i>
                 </div>
                 <div class="card-info">
-                    <h3>Cintas Disponíveis</h3>
-                    <div class="number" id="totalCintas">500</div>
+                    <h3>Cintas para Paletes</h3>
+                    <div>
+                        <span class="number" id="totalCintas">500</span>
+                        <span class="unit">metros</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Insumos para agendamento -->
-        <h2 class="section-title">
+        <!-- INSUMOS PARA AGENDAMENTO -->
+        <div class="section-title">
             <i class="fas fa-boxes"></i>
-            Insumos Disponíveis
-        </h2>
+            <h2>Insumos Disponíveis</h2>
+            <p>Última atualização: <span id="dataAtualizacao">hoje</span></p>
+        </div>
 
         <div class="insumos-grid">
             <!-- Card Paletes -->
             <div class="insumo-card">
                 <div class="insumo-header">
                     <i class="fas fa-pallet"></i>
-                    <h2>Paletes</h2>
+                    <h3>Paletes</h3>
                 </div>
                 <div class="insumo-body">
                     <div class="info-item">
-                        <span class="label">Quantidade disponível:</span>
-                        <span class="value" id="paleteQtd">150</span>
+                        <span class="label"><i class="fas fa-cubes"></i> Quantidade</span>
+                        <span class="value" id="paleteQtd">150 un</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Tamanhos:</span>
+                        <span class="label"><i class="fas fa-ruler"></i> Tamanhos</span>
                         <span class="value">P, M, G</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Material:</span>
+                        <span class="label"><i class="fas fa-tag"></i> Material</span>
                         <span class="value">Madeira/Plástico</span>
                     </div>
                     <button class="btn-agendar" onclick="abrirModal('Paletes')">
-                        <i class="fas fa-calendar-plus"></i> Agendar Paletes
+                        <i class="fas fa-calendar-plus"></i>
+                        Agendar Paletes
                     </button>
                 </div>
             </div>
 
-            <!-- Card Caixas Plásticas -->
+            <!-- Card Caixas -->
             <div class="insumo-card">
                 <div class="insumo-header">
                     <i class="fas fa-box"></i>
-                    <h2>Caixas Plásticas</h2>
+                    <h3>Caixas Plásticas</h3>
                 </div>
                 <div class="insumo-body">
                     <div class="info-item">
-                        <span class="label">Quantidade disponível:</span>
-                        <span class="value" id="caixaQtd">320</span>
+                        <span class="label"><i class="fas fa-cubes"></i> Quantidade</span>
+                        <span class="value" id="caixaQtd">320 un</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Capacidade:</span>
+                        <span class="label"><i class="fas fa-ruler"></i> Capacidade</span>
                         <span class="value">20L a 50L</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Cores:</span>
+                        <span class="label"><i class="fas fa-palette"></i> Cores</span>
                         <span class="value">Azul, Verde</span>
                     </div>
                     <button class="btn-agendar" onclick="abrirModal('Caixas Plásticas')">
-                        <i class="fas fa-calendar-plus"></i> Agendar Caixas
+                        <i class="fas fa-calendar-plus"></i>
+                        Agendar Caixas
                     </button>
                 </div>
             </div>
 
-            <!-- Card Cintas para Paletes -->
+            <!-- Card Cintas -->
             <div class="insumo-card">
                 <div class="insumo-header">
                     <i class="fas fa-tape"></i>
-                    <h2>Cintas para Paletes</h2>
+                    <h3>Cintas para Paletes</h3>
                 </div>
                 <div class="insumo-body">
                     <div class="info-item">
-                        <span class="label">Quantidade disponível:</span>
-                        <span class="value" id="cintaQtd">500</span>
+                        <span class="label"><i class="fas fa-cubes"></i> Quantidade</span>
+                        <span class="value" id="cintaQtd">500 m</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Comprimentos:</span>
+                        <span class="label"><i class="fas fa-ruler"></i> Comprimentos</span>
                         <span class="value">5m, 10m, 20m</span>
                     </div>
                     <div class="info-item">
-                        <span class="label">Material:</span>
+                        <span class="label"><i class="fas fa-tag"></i> Material</span>
                         <span class="value">Polietileno</span>
                     </div>
                     <button class="btn-agendar" onclick="abrirModal('Cintas para Paletes')">
-                        <i class="fas fa-calendar-plus"></i> Agendar Cintas
+                        <i class="fas fa-calendar-plus"></i>
+                        Agendar Cintas
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Histórico de agendamentos -->
-        <h2 class="section-title">
-            <i class="fas fa-history"></i>
-            Meus Agendamentos
-        </h2>
+        <!-- HISTÓRICO DE AGENDAMENTOS -->
+        <div class="agendamentos-section">
+            <div class="agendamentos-header">
+                <h3>
+                    <i class="fas fa-history"></i>
+                    Histórico de Agendamentos
+                </h3>
+                <div class="filtros">
+                    <button class="filtro-btn active" onclick="filtrarAgendamentos('todos')">Todos</button>
+                    <button class="filtro-btn" onclick="filtrarAgendamentos('confirmado')">Confirmados</button>
+                    <button class="filtro-btn" onclick="filtrarAgendamentos('pendente')">Pendentes</button>
+                </div>
+            </div>
 
-        <div class="agendamentos-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Insumo</th>
-                        <th>Quantidade</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="agendamentosList">
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #666;">
-                            Nenhum agendamento encontrado
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id="tabelaAgendamentos">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Insumo</th>
+                            <th>Quantidade</th>
+                            <th>Turno</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendamentosList">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.5);">
+                                <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                                Nenhum agendamento encontrado
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- Modal de agendamento -->
+    <!-- MODAL DE AGENDAMENTO -->
     <div id="agendamentoModal" class="modal">
         <div class="modal-content">
-            <h2 id="modalTitle">Agendar Insumo</h2>
+            <span class="close-modal" onclick="fecharModal()">&times;</span>
+            <h2>
+                <i class="fas fa-calendar-plus"></i>
+                <span id="modalTitle">Novo Agendamento</span>
+            </h2>
+            
             <select id="insumoSelect">
                 <option value="Paletes">Paletes</option>
                 <option value="Caixas Plásticas">Caixas Plásticas</option>
                 <option value="Cintas para Paletes">Cintas para Paletes</option>
             </select>
+            
             <input type="number" id="quantidade" placeholder="Quantidade" min="1">
+            
             <input type="date" id="dataAgendamento">
+            
             <select id="turno">
                 <option value="Manhã">Manhã (08:00 - 12:00)</option>
                 <option value="Tarde">Tarde (13:00 - 17:00)</option>
             </select>
+            
             <div class="modal-buttons">
-                <button class="btn-save" onclick="salvarAgendamento()">Confirmar</button>
-                <button class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-save" onclick="salvarAgendamento()">
+                    <i class="fas fa-check"></i> Confirmar
+                </button>
+                <button class="btn-cancel" onclick="fecharModal()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Carrega dados do usuário
+        // Dados do usuário logado
         const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
         
         if (!currentUser) {
             window.location.href = 'index.html';
         } else {
-            document.getElementById('userName').innerHTML = `<i class="fas fa-user"></i> ${currentUser.name}`;
+            document.getElementById('userName').innerHTML = `
+                <i class="fas fa-user-circle"></i>
+                ${currentUser.nome || currentUser.name}
+            `;
         }
 
-        // Array para armazenar agendamentos
-        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        // Data de atualização
+        const hoje = new Date();
+        document.getElementById('dataAtualizacao').textContent = 
+            hoje.toLocaleDateString('pt-BR');
 
-        // Função para atualizar a tabela
+        // Array de agendamentos
+        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        let filtroAtual = 'todos';
+
+        // Função para atualizar tabela
         function atualizarTabela() {
             const tbody = document.getElementById('agendamentosList');
             
-            if (agendamentos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666;">Nenhum agendamento encontrado</td></tr>';
+            let agendamentosFiltrados = agendamentos;
+            if (filtroAtual !== 'todos') {
+                agendamentosFiltrados = agendamentos.filter(a => 
+                    a.status.toLowerCase() === filtroAtual.toLowerCase()
+                );
+            }
+            
+            if (agendamentosFiltrados.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.5);">
+                            <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                            Nenhum agendamento ${filtroAtual !== 'todos' ? filtroAtual : ''} encontrado
+                        </td>
+                    </tr>
+                `;
                 return;
             }
 
-            tbody.innerHTML = agendamentos.map(ag => `
-                <tr>
-                    <td>${new Date(ag.data).toLocaleDateString('pt-BR')} - ${ag.turno}</td>
-                    <td>${ag.insumo}</td>
-                    <td>${ag.quantidade}</td>
-                    <td><span class="status ${ag.status.toLowerCase()}">${ag.status}</span></td>
-                    <td>
-                        <button onclick="cancelarAgendamento('${ag.id}')" style="background: none; border: none; color: #c33; cursor: pointer;">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = agendamentosFiltrados.map(ag => {
+                const dataObj = new Date(ag.data);
+                const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+                
+                return `
+                    <tr>
+                        <td>${dataFormatada}</td>
+                        <td>${ag.insumo}</td>
+                        <td>${ag.quantidade} ${ag.insumo.includes('Cinta') ? 'm' : 'un'}</td>
+                        <td>${ag.turno}</td>
+                        <td>
+                            <span class="status-badge ${ag.status.toLowerCase()}">
+                                ${ag.status}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="action-btn" onclick="cancelarAgendamento('${ag.id}')" title="Cancelar">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
-        // Função para abrir modal
+        // Função de filtro
+        function filtrarAgendamentos(filtro) {
+            filtroAtual = filtro;
+            
+            document.querySelectorAll('.filtro-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            atualizarTabela();
+        }
+
+        // Abrir modal
         function abrirModal(insumo) {
             document.getElementById('insumoSelect').value = insumo;
             document.getElementById('modalTitle').textContent = `Agendar ${insumo}`;
+            
+            // Data mínima (hoje)
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('dataAgendamento').min = hoje;
+            
             document.getElementById('agendamentoModal').classList.add('show');
         }
 
-        // Função para fechar modal
-        function fecharModal() {
-            document.getElementById('agendamentoModal').classList.remove('show');
-        }
-
-        // Função para salvar agendamento
-        function salvarAgendamento() {
-            const insumo = document.getElementById('insumoSelect').value;
-            const quantidade = document.getElementById('quantidade').value;
-            const data = document.getElementById('dataAgendamento').value;
-            const turno = document.getElementById('turno').value;
-
-            if (!quantidade || !data) {
-                alert('Preencha todos os campos!');
-                return;
-            }
-
-            const novoAgendamento = {
-                id: Date.now().toString(),
-                insumo,
-                quantidade,
-                data,
-                turno,
-                status: 'Confirmado'
-            };
-
-            agendamentos.push(novoAgendamento);
-            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-            
-            atualizarTabela();
-            fecharModal();
-            
-            // Limpar campos
-            document.getElementById('quantidade').value = '';
-            document.getElementById('dataAgendamento').value = '';
-        }
-
-        // Função para cancelar agendamento
-        function cancelarAgendamento(id) {
-            if (confirm('Deseja realmente cancelar este agendamento?')) {
-                agendamentos = agendamentos.filter(ag => ag.id !== id);
-                localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-                atualizarTabela();
-            }
-        }
-
-        // Função de logout
-        function logout() {
-            sessionStorage.removeItem('currentUser');
-            window.location.href = 'index.html';
-        }
-
-        // Carregar dados iniciais
-        atualizarTabela();
-
-        // Animar números dos cards
-        function animarNumero(elemento, valor) {
-            let atual = 0;
-            const incremento = Math.ceil(valor / 50);
-            const timer = setInterval(() => {
-                atual += incremento;
-                if (atual >= valor) {
-                    elemento.textContent = valor;
-                    clearInterval(timer);
-                } else {
-                    elemento.textContent = atual;
-                }
-            }, 20);
-        }
-
-        animarNumero(document.getElementById('totalPaletes'), 150);
-        animarNumero(document.getElementById('totalCaixas'), 320);
-        animarNumero(document.getElementById('totalCintas'), 500);
-        animarNumero(document.getElementById('paleteQtd'), 150);
-        animarNumero(document.getElementById('caixaQtd'), 320);
-        animarNumero(document.getElementById('cintaQtd'), 500);
-
-        // Fechar modal clicando fora
-        window.onclick = function(event) {
-            const modal = document.getElementById('agendamentoModal');
-            if (event.target === modal) {
-                fecharModal();
-            }
-        }
-    </script>
-</body>
-</html>
+        // Fech
